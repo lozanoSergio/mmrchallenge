@@ -2,33 +2,21 @@ import React from "react";
 import { Grid } from "semantic-ui-react";
 import BaseLayout from "../components/layouts/BaseLayout";
 import BasePage from "../components/BasePage";
-import SignUpForm from "../components/forms/SignUpForm";
-import moment from "moment";
+import TournamentList from "../components/tables/tournament/TournamentList";
 
-const INITIAL_VALUES = {
-  title: "",
-  company: "",
-  location: "",
-  position: "",
-  description: ""
-};
-
-class SignUpPage extends React.Component {
+class TournamentPage extends React.Component {
   constructor(props) {
     super();
 
-    this.state = {
-      error: undefined
-    };
+    //this.state = {};
   }
   render() {
-    const { error } = this.state;
     return (
       <BaseLayout {...this.props.auth}>
-        <BasePage title="I am About Page">
+        <BasePage title="I am Tournament Page">
           <Grid textAlign="center" verticalAlign="middle">
             <Grid.Column>
-              <SignUpForm initialValues={INITIAL_VALUES} error={error} />
+              <TournamentList />
             </Grid.Column>
           </Grid>
         </BasePage>
@@ -36,4 +24,5 @@ class SignUpPage extends React.Component {
     );
   }
 }
-export default SignUpPage;
+
+export default TournamentPage;

@@ -1,9 +1,9 @@
 import { Container } from "semantic-ui-react";
 
 const BasePage = props => {
-  const { className, title } = props;
+  const { title } = props;
   return (
-    <div className={`base-page ${className}`}>
+    <div className="base-page">
       <Container>
         {title && (
           <div className="page-header">

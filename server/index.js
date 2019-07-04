@@ -1,13 +1,16 @@
-const express = require('express')
-const next = require('next')
-// const mongoose = require('mongoose')
-const routes = require('../routes')
-const bodyParser = require('body-parser')
+const express = require('express');
+const next = require('next');
+const jsonServer = require('json-server');
+const path = require('path');
+// const mongoose = require('mongoose');
+const routes = require('../routes');
+const bodyParser = require('body-parser');
 
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
 const handle = routes.getRequestHandler(app);
 
+const router = jsonServer.router(path.join(__dirname, 'vehicles.json'));
 
 // const bookRoutes = require('./routes/book');
 // const portfolioRoutes = require('./routes/portfolio');
@@ -47,9 +50,13 @@ app
     //   return res.json(secretData)
     // })
 
+    server.use('/api/v1', router)
+
     server.get('*', (req, res) => {
       return handle(req, res)
     })
+
+    
     
     // server.use(function (err, req, res, next) {
     //     if (err.name === 'UnauthorizedError') {

@@ -1,21 +1,18 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import Link from "next/link";
 import {
   Button,
   Container,
-  Divider,
-  Grid,
   Header,
   Icon,
-  Image,
-  List,
   Menu,
   Responsive,
   Segment,
   Sidebar,
   Visibility
 } from "semantic-ui-react";
+
+import BsNavLink from './BsNavLink';
 //import auth0 from "../../services/auth0";
 
 // Heads up!
@@ -31,48 +28,41 @@ const getWidth = () => {
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
  * such things.
  */
-const HomepageHeading = ({ mobile }) =>  (
-    <Container text>
-      <Header
-        as='h1'
-        content='Imagine-a-Company'
-        inverted
-        style={{
-          fontSize: mobile ? '2em' : '4em',
-          fontWeight: 'normal',
-          marginBottom: 0,
-          marginTop: mobile ? '1.5em' : '3em',
-        }}
-      />
-      <Header
-        as='h2'
-        content='Do whatever you want when you want to.'
-        inverted
-        style={{
-          fontSize: mobile ? '1.5em' : '1.7em',
-          fontWeight: 'normal',
-          marginTop: mobile ? '0.5em' : '1.5em',
-        }}
-      />
-      <Button primary size='huge'>
-        Get Started
-        <Icon name='right arrow' />
-      </Button>
-    </Container>
-  )
-  
-  HomepageHeading.propTypes = {
-    mobile: PropTypes.bool,
-  }
+const HomepageHeading = ({ mobile }) => (
+  <Container text>
+    <Header
+      as="h1"
+      content="Imagine-a-Company"
+      inverted
+      style={{
+        fontSize: mobile ? "2em" : "4em",
+        fontWeight: "normal",
+        marginBottom: 0,
+        marginTop: mobile ? "1.5em" : "3em"
+      }}
+    />
+    <Header
+      as="h2"
+      content="Do whatever you want when you want to."
+      inverted
+      style={{
+        fontSize: mobile ? "1.5em" : "1.7em",
+        fontWeight: "normal",
+        marginTop: mobile ? "0.5em" : "1.5em"
+      }}
+    />
+    <Button primary size="huge">
+      Get Started
+      <Icon name="right arrow" />
+    </Button>
+  </Container>
+);
 
-const BsNavLink = props => {
-  const { route, title } = props;
-  return (
-    <Link href={route}>
-      <a className="nav-link port-navbar-link">{title}</a>
-    </Link>
-  );
+HomepageHeading.propTypes = {
+  mobile: PropTypes.bool
 };
+
+
 
 class DesktopContainer extends Component {
   state = {};
@@ -81,7 +71,7 @@ class DesktopContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   render() {
-    const { children, index } = this.props;
+    const { children, index, path } = this.props;
     const { fixed } = this.state;
 
     return (
@@ -105,12 +95,10 @@ class DesktopContainer extends Component {
               size="large"
             >
               <Container>
-                <Menu.Item as="a" active>
-                  Home
-                </Menu.Item>
-                <Menu.Item as="a">Work</Menu.Item>
-                <Menu.Item as="a">Company</Menu.Item>
-                <Menu.Item as="a">Careers</Menu.Item>
+                <BsNavLink title="Home" route="/" as="/" />
+                <BsNavLink title="League of Legends" route="/leagueoflegends" as="lol" />
+                <BsNavLink title="TeamFight Tactics" route="/tft" as="tft" />
+                <BsNavLink title="My Tournaments" route="/mytournaments" as="mytournaments" />
                 <Menu.Item position="right">
                   <Button as="a" inverted={!fixed}>
                     Log in
@@ -138,7 +126,7 @@ class DesktopContainer extends Component {
 
 DesktopContainer.propTypes = {
   children: PropTypes.node,
-  index: PropTypes.bool,
+  index: PropTypes.bool
 };
 
 class MobileContainer extends Component {
@@ -169,9 +157,9 @@ class MobileContainer extends Component {
           <Menu.Item as="a" active>
             Home
           </Menu.Item>
-          <Menu.Item as="a">Work</Menu.Item>
-          <Menu.Item as="a">Company</Menu.Item>
-          <Menu.Item as="a">Careers</Menu.Item>
+          <Menu.Item as="a">League of Legends</Menu.Item>
+          <Menu.Item as="a">Team Fight Tactics</Menu.Item>
+          <Menu.Item as="a">My Tournaments</Menu.Item>
           <Menu.Item as="a">Log in</Menu.Item>
           <Menu.Item as="a">Sign Up</Menu.Item>
         </Sidebar>
@@ -210,10 +198,11 @@ class MobileContainer extends Component {
 
 MobileContainer.propTypes = {
   children: PropTypes.node,
-  index: PropTypes.bool,
+  index: PropTypes.bool
 };
 
 class ResponsiveHeader extends React.Component {
+
   constructor(props) {
     super(props);
   }
@@ -222,8 +211,8 @@ class ResponsiveHeader extends React.Component {
     const { isAuthenticated, user, className, index, children } = this.props;
     return (
       <div>
-        <DesktopContainer index={index} >{children}</DesktopContainer>
-        <MobileContainer index={index} >{children}</MobileContainer>
+        <DesktopContainer index={index}>{children}</DesktopContainer>
+        <MobileContainer index={index}>{children}</MobileContainer>
       </div>
     );
   }

@@ -8,9 +8,8 @@ export const TournamentTableRow = (props) => (
     <Table.Cell>{props.vehicle.make}</Table.Cell>
     <Table.Cell>{props.vehicle.model}</Table.Cell>
     <Table.Cell>{props.vehicle.year}</Table.Cell>
-    <Table.Cell>{props.vehicle.package}</Table.Cell>
-    <Table.Cell>{props.vehicle.fuelType}</Table.Cell>
-    <Table.Cell>{props.vehicle.transmission}</Table.Cell>
+    <Table.Cell>W: 290 L: 156</Table.Cell>
+    <Table.Cell textAlign='center'><Button color='purple'>Twitch</Button></Table.Cell>
     <Table.Cell textAlign='center'>
       <Button
         onClick={() => props.addFavorite(props.vehicle)}

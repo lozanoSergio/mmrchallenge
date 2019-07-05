@@ -42,7 +42,6 @@ export class TournamentFilter extends React.Component {
                 name='filter'
                 value={filter}
                 error={!this.state.filterValid}
-                label='Filter'
                 onChange={this.handleOnChange}
                 icon='search'
                 loading={this.props.loading}

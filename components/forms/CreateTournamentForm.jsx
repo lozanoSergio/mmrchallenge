@@ -1,79 +1,69 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Button, Message } from "semantic-ui-react";
-import PortInput from "./form/PortInput";
-import moment from 'moment';
+import { Formik } from "formik";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Radio,
+  Select,
+  TextArea,
+  Segment,
+  Message,
+  Divider
+} from "semantic-ui-react";
 
-const validateInputs = values => {
-  let errors = {};
+import ImageDropzone from "../forms/form/ImageDropzone";
 
-  Object.entries(values).forEach(([key, value]) => {
-    if (!values[key] && key !== 'endDate') {
-        errors[key] = `Field ${key} is required!`
-    }
-  });
-
-  const startDate = moment(values.startDate);
-  const endDate = moment(values.endDate);
-
-  if (startDate && endDate && endDate.isBefore(startDate)) {
-      errors.endDate = 'End Date cannot be before start date!';
-  }
-
-  return errors;
-};
-
-const CreateTournamentForm = ({initialValues, onSubmit, error}) => (
-  <div>
-    <Formik
-      initialValues={initialValues}
-      validate={validateInputs}
-      onSubmit={onSubmit}
-    >
-      {({ isSubmitting }) => (
-        <Form>
-          <Field
-            type="text"
-            name="title"
-            label="Title"
-            component={PortInput}
-          />
-          <Field
-            type="text"
-            name="company"
-            label="Company"
-            component={PortInput}
-          />
-          <Field
-            type="text"
-            name="location"
-            label="Location"
-            component={PortInput}
-          />
-          <Field
-            type="text"
-            name="position"
-            label="Position"
-            component={PortInput}
-          />
-          <Field
-            type="textarea"
-            name="description"
-            label="Description"
-            component={PortInput}
-          />
-          {error && 
-            <Message negative>
-              <p>{error}</p>
-            </Message>
-          }
-          <Button color="success" size="lg" type="submit" disabled={isSubmitting}>
-            Create
-          </Button>
-        </Form>
-      )}
-    </Formik>
-  </div>
+const CreateTournamentForm = ({
+  initialValues,
+  onSubmit,
+  value,
+  handleChange,
+  error
+}) => (
+  <Segment>
+    <Form>
+      <Form.Group>
+        <Form.Field
+          control={Input}
+          label="Tournament name"
+          placeholder="Tournament name"
+          width={6}
+        />
+      </Form.Group>
+      <Form.Group inline>
+        <label>Game</label>
+        <Form.Field
+          control={Radio}
+          label="League of Legends"
+          value="1"
+          checked={value === "1"}
+          onChange={handleChange}
+        />
+        <Form.Field
+          control={Radio}
+          label="TeamFight Tactics"
+          value="2"
+          checked={value === "2"}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Form.Field control={ImageDropzone} label="Image" />
+      <Form.Field
+        control={TextArea}
+        label="Description"
+        placeholder="Tournament description ..."
+      />
+      <Divider />
+      <Button>
+        Cancel
+      </Button>
+      <Button floated="right" type="submit" disabled={false}>
+        Next
+      </Button>
+    </Form>
+  </Segment>
 );
 
 export default CreateTournamentForm;

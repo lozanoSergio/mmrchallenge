@@ -13,7 +13,7 @@ class TournamentPage extends React.Component {
   render() {
     return (
       <BaseLayout {...this.props.auth}>
-        <BasePage title="I am Tournament Page">
+        <BasePage>
           <Grid textAlign="center" verticalAlign="middle">
             <Grid.Column>
               <TournamentList />
